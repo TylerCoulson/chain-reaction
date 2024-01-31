@@ -6,7 +6,8 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currentDate.getMonth()+1).sli
 let words = WORDS[strDate];
 
 const MAX_LENGTH = 10;
-let minLengths = Array(9).fill(0);
+const BOARD_SIZE = 9;
+let minLengths = Array(BOARD_SIZE).fill(0);
 let currentLength = 0;
 
 let activeRow = null;
@@ -15,7 +16,37 @@ let belowRow = 1;
 let aboveRow = 7;
 
 
+function buildBox() {
+    let box = document.createElement("div");
+    box.className = "flex items-center justify-center w-12 h-12 mx-1 text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
+    return box; 
+}
+function buildRow() {
+    let row = document.createElement("div");
+    row.className = "flex justify-center p-2";
+    
+    let input = document.createElement("input");
+    input.className = "hidden peer word-checkbox";
+    input.setAttribute('type', 'radio');
+    input.setAttribute('name', "row");
+    row.appendChild(input)
+
+    for (let r =0; r < MAX_LENGTH; r++ ) {
+        let box = buildBox();
+        row.appendChild(box);
+    }
+    return row; 
+};
+function buildBoard() {
+    let board = document.getElementById("game-board")
+
+    for (let r =0; r < BOARD_SIZE; r++ ) {
+        let row = buildRow();
+        board.appendChild(row)
+    }
+};
 function initGame() {
+    buildBoard()
     let topRow = document.getElementsByClassName("word-checkbox")[belowRow-1].parentElement.getElementsByTagName('div');
     let topWord = words[0]
     for (let i = 0; i < topWord.length; i++) {

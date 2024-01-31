@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>CHAIN REACTION</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+        <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+        <script>
+            function tz_offset() {
+                return new Date().getTimezoneOffset();
+            }
+        </script>
+
+        <script src="https://unpkg.com/hyperscript.org@0.9.7"></script>        
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+
+
+    </head>    
+    <body class="h-screen" data-theme="sunset">
+
+        <main id="container" class="">
+            <h1 class="flex justify-center p-4 text-2xl">Chain Reaction</h1>
+            <div id="game-board" class="flex flex-col justify-center">
+                <!-- {% for word in range(9) %}
+                    {% set outer_loop = loop %}
+                    <div class="flex justify-center p-2">
+                        <input type="radio" name="row" class="hidden peer word-checkbox"/>
+                        {% for i in range(10) %}
+                            <div class="flex items-center justify-center w-12 h-12 mx-1 text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]">
+                                {% if (outer_loop.first or outer_loop.last) %} {{word[i]}}{% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %} -->
+            </div>
+            
+            <div class="flex justify-center m-4 gap-x-24">
+                <button id="select-below" class="btn btn-primary">Below</button>
+                <button id="select-above" class="btn btn-primary">Above</button>
+            </div>
+            
+            <div class="flex justify-center">
+                <button id="add-letter" class="btn btn-primary">Add Letter</button>
+            </div>
+        </main>
+
+    </body>
+    <script src="static/scripts.js" type="module" ></script>
+</html>
