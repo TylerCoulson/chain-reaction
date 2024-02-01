@@ -28,7 +28,7 @@ function buildRow() {
     row.className = "contents";
     
     let input = document.createElement("input");
-    input.className = "hidden peer";
+    input.className = "invisible peer";
     input.setAttribute('type', 'radio');
     input.setAttribute('name', "row");
     row.appendChild(input)
@@ -37,6 +37,12 @@ function buildRow() {
         let box = buildBox();
         row.appendChild(box);
     }
+    let btn = document.createElement("button");
+    btn.className = "flex invisible w-10/12 justify-self-center h-10/12 btn btn-primary peer-checked:visible";
+    btn.setAttribute('name', "add-letter");
+    btn.textContent = "+"
+    row.appendChild(btn)
+    
     return row; 
 };
 
@@ -130,7 +136,7 @@ function deleteAllLetters(){
 }
 
 function checkGuess() {
-    let guess = activeRow.textContent.replace(/\s/g, "")
+    let guess = activeRow.textContent.replace(/\W/g, "")
 
     if (guess == words[activeRowID]) {
         console.log("correct guess");
@@ -205,6 +211,10 @@ document.addEventListener("keyup", (e) => {
 
 document.getElementById("select-below").addEventListener("click", (e) => {selectRow(true)});
 document.getElementById("select-above").addEventListener("click", (e) => {selectRow(false)});
-document.getElementById("add-letter").addEventListener("click", addLetter);
 
 initGame();
+
+let addLetterList = document.querySelectorAll('button[name="add-letter"]')
+for (let i=0; i<addLetterList.length; i++){
+    addLetterList[i].addEventListener("click", addLetter);
+}
