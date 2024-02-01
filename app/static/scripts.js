@@ -2,7 +2,9 @@ import { WORDS } from "./words.js";
 
 
 let currentDate = new Date();
-let strDate = `${currentDate.getFullYear()}-${('0'+currentDate.getMonth()+1).slice(-2)}-${('0'+currentDate.getDate()).slice(-2)}`;
+let currMonth = currentDate.getMonth()+1;
+let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+currentDate.getDate()).slice(-2)}`;
+
 let words = WORDS[strDate];
 
 const MAX_LENGTH = 10;
@@ -11,9 +13,9 @@ let minLengths = Array(BOARD_SIZE).fill(0);
 let currentLength = 0;
 
 let activeRow = null;
-let activeRowID = 1
-let belowRow = 1;
-let aboveRow = 7;
+let activeRowID = 1;
+let belowRow = parseInt(localStorage.getItem("belowRow"));
+let aboveRow = parseFloat(localStorage.getItem("aboveRow"));
 
 
 function buildBox() {
@@ -46,17 +48,26 @@ function buildBoard() {
     }
 };
 function initGame() {
+    if (localStorage.getItem("date") != strDate) {
+        belowRow = 1;
+        aboveRow = 7;
+        localStorage.setItem('belowRow', belowRow);
+        localStorage.setItem('aboveRow', aboveRow);
+        localStorage.setItem('date', strDate);
+    }
+    
     buildBoard()
-    let topRow = document.getElementsByClassName("word-checkbox")[belowRow-1].parentElement.getElementsByTagName('div');
-    let topWord = words[0]
-    for (let i = 0; i < topWord.length; i++) {
-        topRow[i].textContent = topWord[i];
-      } 
-    let bottomRow = document.getElementsByClassName("word-checkbox")[aboveRow+1].parentElement.getElementsByTagName('div');
-    let bottomWord = words[words.length - 1]
-    for (let i = 0; i < bottomWord.length; i++) {
-        bottomRow[i].textContent = bottomWord[i];
-    } 
+
+    for (let r=0; r<BOARD_SIZE; r++){
+        let row = document.getElementsByClassName("word-checkbox")[r].parentElement.getElementsByTagName('div');
+        let word = words[r]
+        if (r < belowRow || r > aboveRow) {
+            for (let i = 0; i < word.length; i++) {
+                row[i].textContent = word[i];
+              } 
+        }
+    }
+
     selectBelow();
 };
 
@@ -84,6 +95,9 @@ function insertLetter(key) {
 };
 
 function addLetter() {
+    if (belowRow > aboveRow) {
+        return;
+    }
     deleteAllLetters();
     let word = words[activeRowID];
     if (minLengths[activeRowID] == word.length - 1){
@@ -113,9 +127,11 @@ function checkGuess() {
 
         if (activeRowID === belowRow) {
             belowRow += 1;
+            localStorage.setItem('belowRow', belowRow);
             selectBelow();
         } else {
             aboveRow -= 1;
+            localStorage.setItem('aboveRow', aboveRow);
             selectAbove();
         }
         if (belowRow > aboveRow) {
@@ -163,8 +179,6 @@ function selectAbove() {
 
 document.addEventListener("keyup", (e) => {
     if (belowRow > aboveRow) {
-        console.log("You Win");
-        activeRow = null;
         return;
     }
     let pressedKey = e.key;
