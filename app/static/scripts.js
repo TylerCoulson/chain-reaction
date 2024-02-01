@@ -39,6 +39,7 @@ function buildRow() {
     }
     return row; 
 };
+
 function buildBoard() {
     let board = document.getElementById("game-board")
 
@@ -106,6 +107,9 @@ function addLetter() {
         return;
     }
     let key = word[minLengths[activeRowID]];
+    let box = activeRow.getElementsByTagName('div')[currentLength];
+    box.classList.add("text-error")
+
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
     minLengths[activeRowID] += 1;
     currentLength = minLengths[activeRowID];
