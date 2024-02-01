@@ -16,7 +16,7 @@ let activeRow = null;
 let activeRowID = 1;
 let belowRow = parseInt(localStorage.getItem("belowRow"));
 let aboveRow = parseFloat(localStorage.getItem("aboveRow"));
-
+let currRow = belowRow
 
 function buildBox() {
     let box = document.createElement("div");
@@ -28,7 +28,7 @@ function buildRow() {
     row.className = "contents";
     
     let input = document.createElement("input");
-    input.className = "hidden peer word-checkbox";
+    input.className = "hidden peer";
     input.setAttribute('type', 'radio');
     input.setAttribute('name', "row");
     row.appendChild(input)
@@ -60,7 +60,7 @@ function initGame() {
     buildBoard()
 
     for (let r=0; r<BOARD_SIZE; r++){
-        let row = document.getElementsByClassName("word-checkbox")[r].parentElement.getElementsByTagName('div');
+        let row = document.querySelectorAll("input[name='row']")[r].parentElement.getElementsByTagName('div');
         let word = words[r]
         if (r < belowRow || r > aboveRow) {
             for (let i = 0; i < word.length; i++) {
@@ -69,7 +69,7 @@ function initGame() {
         }
     }
 
-    selectBelow();
+    selectRow(true);
     
     if (belowRow > aboveRow) {
         winGame();
@@ -138,11 +138,11 @@ function checkGuess() {
         if (activeRowID === belowRow) {
             belowRow += 1;
             localStorage.setItem('belowRow', belowRow);
-            selectBelow();
+            selectRow(true);
         } else {
             aboveRow -= 1;
             localStorage.setItem('aboveRow', aboveRow);
-            selectAbove();
+            selectRow(false);
         }
         if (belowRow > aboveRow) {
             winGame();
@@ -163,28 +163,21 @@ function deleteLetter() {
     currentLength -= 1;
 };
 
-function selectBelow() {
+function selectRow(below) {
     if (belowRow > aboveRow) {
         return;
     }
-    let row = document.getElementsByClassName("word-checkbox")[belowRow];
-    row.checked = true;
-    activeRow = row.parentElement;
-    activeRowID = belowRow;
-    currentLength = minLengths[activeRowID];
-
-};
-
-function selectAbove() {
-    if (belowRow > aboveRow) {
-        return;
+    if (below) {
+        currRow = belowRow
+    } else {
+        currRow = aboveRow
     }
-    let row = document.getElementsByClassName("word-checkbox")[aboveRow];
+    
+    let row = document.querySelectorAll('input[name="row"]')[currRow];
     row.checked = true;
     activeRow = row.parentElement;
-    activeRowID = aboveRow;
+    activeRowID = currRow;
     currentLength = minLengths[activeRowID];
-
 };
 
 document.addEventListener("keyup", (e) => {
@@ -210,8 +203,8 @@ document.addEventListener("keyup", (e) => {
     }
 });
 
-document.getElementById("select-below").addEventListener("click", selectBelow);
-document.getElementById("select-above").addEventListener("click", selectAbove);
+document.getElementById("select-below").addEventListener("click", (e) => {selectRow(true)});
+document.getElementById("select-above").addEventListener("click", (e) => {selectRow(false)});
 document.getElementById("add-letter").addEventListener("click", addLetter);
 
 initGame();
