@@ -20,7 +20,7 @@ let currRow = belowRow
 
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center justify-center w-12 h-12 m-1 text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
+    box.className = "flex items-center justify-center min-w-8 min-h-8 md:w-12 md:h-12 m-1 md:text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
     return box; 
 }
 function buildRow() {
