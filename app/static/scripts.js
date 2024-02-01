@@ -20,12 +20,12 @@ let aboveRow = parseFloat(localStorage.getItem("aboveRow"));
 
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center justify-center w-12 h-12 mx-1 text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
+    box.className = "flex items-center justify-center w-12 h-12 m-1 text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
     return box; 
 }
 function buildRow() {
     let row = document.createElement("div");
-    row.className = "flex justify-center p-2";
+    row.className = "contents";
     
     let input = document.createElement("input");
     input.className = "hidden peer word-checkbox";
@@ -33,7 +33,7 @@ function buildRow() {
     input.setAttribute('name', "row");
     row.appendChild(input)
 
-    for (let r =0; r < MAX_LENGTH; r++ ) {
+    for (let r = 0; r < MAX_LENGTH; r++ ) {
         let box = buildBox();
         row.appendChild(box);
     }
@@ -70,6 +70,10 @@ function initGame() {
     }
 
     selectBelow();
+    
+    if (belowRow > aboveRow) {
+        winGame();
+    }
 };
 
 function winGame() {
@@ -81,7 +85,9 @@ function winGame() {
     }
     activeRow = null;
     let row = document.querySelector('input[name="row"]:checked');
-    row.checked = false;
+    if (row) {
+        row.checked = false;
+    }
 };
 
 function insertLetter(key) {
