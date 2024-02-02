@@ -8,7 +8,7 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 let words = WORDS[strDate];
 
 const MAX_LENGTH = 10;
-const BOARD_SIZE = 7;
+const BOARD_SIZE = 9;
 let minLengths = Array(BOARD_SIZE).fill(0);
 let currentLength = 0;
 
