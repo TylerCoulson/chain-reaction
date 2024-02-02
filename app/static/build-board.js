@@ -3,7 +3,7 @@ export const BOARD_SIZE = 9;
 
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center w-full h-full justify-center border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
+    box.className = "flex items-center w-full min-w-[1em] text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
     return box; 
 };
 
