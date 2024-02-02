@@ -166,7 +166,7 @@ function deleteLetter() {
     currentLength -= 1;
 };
 
-function selectRow(below) {
+function selectRow() {
     if (belowRow >= BOARD_SIZE) {
         return;
     }
@@ -218,10 +218,6 @@ for (let i=0; i<keys.length; i++) {
   });
 };
 
+document.getElementById('addLetter').addEventListener("click", addLetter);
 
 initGame();
-
-let addLetterList = document.querySelectorAll('button[name="add-letter"]')
-for (let i=0; i<addLetterList.length; i++){
-    addLetterList[i].addEventListener("click", addLetter);
-};
