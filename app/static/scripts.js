@@ -24,7 +24,7 @@ winInput.checked = false
 
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center w-full h-full justify-center text-[2em] font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
+    box.className = "flex items-center w-full h-full justify-center border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
     return box; 
 };
 
@@ -153,6 +153,7 @@ function checkGuess() {
 
     } else {
         deleteAllLetters();
+        addLetter();
     }
 };
 
