@@ -15,10 +15,10 @@ let currentLength = 0;
 let activeRow = null;
 let activeRowID = 1;
 let belowRow = parseInt(localStorage.getItem("belowRow"));
-let aboveRow = parseFloat(localStorage.getItem("aboveRow"));
 let won = parseFloat(localStorage.getItem("won"));
 let currRow = belowRow;
-let winInput = document.getElementById("winCheckbox")
+let winInput = document.getElementById("winCheckbox");
+winInput.checked = false
 
 
 
@@ -42,11 +42,6 @@ function buildRow() {
         let box = buildBox();
         row.appendChild(box);
     }
-    let btn = document.createElement("button");
-    btn.className = "flex invisible w-10/12 justify-self-center h-10/12 btn btn-primary peer-checked:visible";
-    btn.setAttribute('name', "add-letter");
-    btn.textContent = "+"
-    // row.appendChild(btn)
     
     return row; 
 };
@@ -62,14 +57,10 @@ function buildBoard() {
 function initGame() {
     if (localStorage.getItem("date") != strDate) {
         belowRow = 1;
-        aboveRow = (BOARD_SIZE-2);
         localStorage.setItem('belowRow', belowRow);
-        localStorage.setItem('aboveRow', aboveRow);
         localStorage.setItem('date', strDate);
         localStorage.setItem('won', false);
     }
-
-    winInput.checked = false;
 
     if (won) {
         winInput.checked = true;
@@ -80,7 +71,7 @@ function initGame() {
     for (let r=0; r<BOARD_SIZE; r++){
         let row = document.querySelectorAll("input[name='row']")[r].parentElement.getElementsByTagName('div');
         let word = words[r]
-        if (r < belowRow || r > aboveRow) {
+        if (r < belowRow) {
             for (let i = 0; i < word.length; i++) {
                 row[i].textContent = word[i];
               } 
@@ -89,7 +80,7 @@ function initGame() {
 
     selectRow(true);
     
-    if (belowRow > aboveRow) {
+    if (belowRow >= BOARD_SIZE) {
         winGame();
     }
 };
@@ -117,7 +108,7 @@ function insertLetter(key) {
 };
 
 function addLetter() {
-    if (belowRow > aboveRow) {
+    if (belowRow >= BOARD_SIZE) {
         return;
     }
     deleteAllLetters();
@@ -150,18 +141,14 @@ function checkGuess() {
     if (guess == words[activeRowID]) {
         console.log("correct guess");
 
-        if (activeRowID === belowRow) {
-            belowRow += 1;
-            localStorage.setItem('belowRow', belowRow);
-            selectRow(true);
-        } else {
-            aboveRow -= 1;
-            localStorage.setItem('aboveRow', aboveRow);
-            selectRow(false);
-        }
-        if (belowRow > aboveRow) {
+        belowRow += 1;
+        localStorage.setItem('belowRow', belowRow);
+        selectRow(true);
+
+        if (belowRow >= BOARD_SIZE) {
             winGame();
         }
+
         return;
 
     } else {
@@ -179,15 +166,12 @@ function deleteLetter() {
 };
 
 function selectRow(below) {
-    if (belowRow > aboveRow) {
+    if (belowRow >= BOARD_SIZE) {
         return;
     }
-    if (below) {
-        currRow = belowRow;
-        document.getElementById("select-below");
-    } else {
-        currRow = aboveRow;
-    }
+
+    currRow = belowRow;
+    document.getElementById("select-below");
     
     let row = document.querySelectorAll('input[name="row"]')[currRow];
     row.checked = true;
@@ -197,7 +181,7 @@ function selectRow(below) {
 };
 
 document.addEventListener("keyup", (e) => {
-    if (belowRow > aboveRow) {
+    if (belowRow >= BOARD_SIZE) {
         return;
     }
     let pressedKey = e.key;
@@ -218,9 +202,6 @@ document.addEventListener("keyup", (e) => {
         return;
     }
 });
-
-document.getElementById("select-below").addEventListener("click", (e) => {selectRow(true)});
-document.getElementById("select-above").addEventListener("click", (e) => {selectRow(false)});
 
 let keys = document.querySelectorAll('button[name="key"]');
 for (let i=0; i<keys.length; i++) {
