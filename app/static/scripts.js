@@ -8,7 +8,7 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 let words = WORDS[strDate];
 
 const MAX_LENGTH = 10;
-const BOARD_SIZE = 9;
+const BOARD_SIZE = 7;
 let minLengths = Array(BOARD_SIZE).fill(0);
 let currentLength = 0;
 
@@ -16,11 +16,15 @@ let activeRow = null;
 let activeRowID = 1;
 let belowRow = parseInt(localStorage.getItem("belowRow"));
 let aboveRow = parseFloat(localStorage.getItem("aboveRow"));
+let won = parseFloat(localStorage.getItem("won"));
 let currRow = belowRow;
+let winInput = document.getElementById("winCheckbox")
+
+
 
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center justify-center w-full h-full m-1 text-xl md:text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
+    box.className = "flex items-center w-full h-full justify-center text-[2em] font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
     return box; 
 };
 
@@ -29,7 +33,7 @@ function buildRow() {
     row.className = "contents";
     
     let input = document.createElement("input");
-    input.className = "invisible peer";
+    input.className = "hidden peer";
     input.setAttribute('type', 'radio');
     input.setAttribute('name', "row");
     row.appendChild(input)
@@ -42,7 +46,7 @@ function buildRow() {
     btn.className = "flex invisible w-10/12 justify-self-center h-10/12 btn btn-primary peer-checked:visible";
     btn.setAttribute('name', "add-letter");
     btn.textContent = "+"
-    row.appendChild(btn)
+    // row.appendChild(btn)
     
     return row; 
 };
@@ -58,12 +62,19 @@ function buildBoard() {
 function initGame() {
     if (localStorage.getItem("date") != strDate) {
         belowRow = 1;
-        aboveRow = 7;
+        aboveRow = (BOARD_SIZE-2);
         localStorage.setItem('belowRow', belowRow);
         localStorage.setItem('aboveRow', aboveRow);
         localStorage.setItem('date', strDate);
+        localStorage.setItem('won', false);
     }
-    
+
+    winInput.checked = false;
+
+    if (won) {
+        winInput.checked = true;
+    }
+
     buildBoard()
 
     for (let r=0; r<BOARD_SIZE; r++){
@@ -85,11 +96,8 @@ function initGame() {
 
 function winGame() {
     console.log("YOU WIN");
-    let rows = document.querySelectorAll(".border-primary");
-    for (let i = 0; i < rows.length; i++) {
-        rows[i].classList.remove("border-primary");
-        rows[i].classList.add("border-accent");
-    }
+    winInput.checked = true;
+    localStorage.setItem("won", true);
     activeRow = null;
     let row = document.querySelector('input[name="row"]:checked');
     if (row) {
