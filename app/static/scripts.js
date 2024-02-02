@@ -78,7 +78,7 @@ function initGame() {
         }
     }
 
-    selectRow(true);
+    selectRow();
     
     if (belowRow >= BOARD_SIZE) {
         winGame();
@@ -107,7 +107,7 @@ function insertLetter(key) {
     currentLength += 1;
 };
 
-function addLetter() {
+function addLetter(help=true) {
     if (belowRow >= BOARD_SIZE) {
         return;
     }
@@ -119,8 +119,14 @@ function addLetter() {
         return;
     }
     let key = word[minLengths[activeRowID]];
+    console.log('test')
     let box = activeRow.getElementsByTagName('div')[currentLength];
-    box.classList.add("text-error")
+    if (help) {
+        box.classList.add("text-error")
+    } else{
+        box.classList.add("text-success")
+    }
+
 
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
     minLengths[activeRowID] += 1;
@@ -137,13 +143,18 @@ function deleteAllLetters(){
 
 function checkGuess() {
     let guess = activeRow.textContent.replace(/\W/g, "")
+    let correctWord = words[activeRowID] 
+    if (guess == correctWord) {
 
-    if (guess == words[activeRowID]) {
-        console.log("correct guess");
+        for (let i=minLengths[activeRowID]; i<=correctWord.length; i++) {
+            let box = activeRow.getElementsByTagName('div')[i];
+            box.classList.add("text-success");
+        }
 
         belowRow += 1;
         localStorage.setItem('belowRow', belowRow);
-        selectRow(true);
+
+        selectRow();
 
         if (belowRow >= BOARD_SIZE) {
             winGame();
@@ -172,13 +183,13 @@ function selectRow() {
     }
 
     currRow = belowRow;
-    document.getElementById("select-below");
     
     let row = document.querySelectorAll('input[name="row"]')[currRow];
     row.checked = true;
     activeRow = row.parentElement;
     activeRowID = currRow;
     currentLength = minLengths[activeRowID];
+    addLetter(false);
 };
 
 document.addEventListener("keyup", (e) => {
