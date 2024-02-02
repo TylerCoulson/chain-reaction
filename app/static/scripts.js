@@ -153,6 +153,7 @@ function checkGuess() {
 
     } else {
         deleteAllLetters();
+        addLetter();
     }
 };
 
