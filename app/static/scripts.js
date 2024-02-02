@@ -1,14 +1,11 @@
 import { WORDS } from "./words.js";
-
+import { buildBoard, BOARD_SIZE, MAX_LENGTH } from "./build-board.js";
 
 let currentDate = new Date();
 let currMonth = currentDate.getMonth()+1;
 let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+currentDate.getDate()).slice(-2)}`;
 
 let words = WORDS[strDate];
-
-const MAX_LENGTH = 10;
-const BOARD_SIZE = 9;
 let minLengths = Array(BOARD_SIZE).fill(0);
 let currentLength = 0;
 
@@ -20,40 +17,6 @@ let currRow = belowRow;
 let winInput = document.getElementById("winCheckbox");
 winInput.checked = false
 
-
-
-function buildBox() {
-    let box = document.createElement("div");
-    box.className = "flex items-center w-full h-full justify-center border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
-    return box; 
-};
-
-function buildRow() {
-    let row = document.createElement("div");
-    row.className = "contents";
-    
-    let input = document.createElement("input");
-    input.className = "hidden peer";
-    input.setAttribute('type', 'radio');
-    input.setAttribute('name', "row");
-    row.appendChild(input)
-
-    for (let r = 0; r < MAX_LENGTH; r++ ) {
-        let box = buildBox();
-        row.appendChild(box);
-    }
-    
-    return row; 
-};
-
-function buildBoard() {
-    let board = document.getElementById("game-board")
-
-    for (let r =0; r < BOARD_SIZE; r++ ) {
-        let row = buildRow();
-        board.appendChild(row);
-    }
-};
 function initGame() {
     if (localStorage.getItem("date") != strDate) {
         belowRow = 1;
