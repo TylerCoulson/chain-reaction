@@ -16,13 +16,14 @@ let activeRow = null;
 let activeRowID = 1;
 let belowRow = parseInt(localStorage.getItem("belowRow"));
 let aboveRow = parseFloat(localStorage.getItem("aboveRow"));
-let currRow = belowRow
+let currRow = belowRow;
 
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center justify-center min-w-8 min-h-8 md:w-12 md:h-12 m-1 md:text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
+    box.className = "flex items-center justify-center w-full h-full m-1 text-xl md:text-2xl font-bold border-2 border-primary peer-checked:border-[oklch(var(--s))]";
     return box; 
-}
+};
+
 function buildRow() {
     let row = document.createElement("div");
     row.className = "contents";
@@ -51,7 +52,7 @@ function buildBoard() {
 
     for (let r =0; r < BOARD_SIZE; r++ ) {
         let row = buildRow();
-        board.appendChild(row)
+        board.appendChild(row);
     }
 };
 function initGame() {
@@ -86,8 +87,8 @@ function winGame() {
     console.log("YOU WIN");
     let rows = document.querySelectorAll(".border-primary");
     for (let i = 0; i < rows.length; i++) {
-        rows[i].classList.remove("border-primary")
-        rows[i].classList.add("border-accent")
+        rows[i].classList.remove("border-primary");
+        rows[i].classList.add("border-accent");
     }
     activeRow = null;
     let row = document.querySelector('input[name="row"]:checked');
@@ -98,7 +99,7 @@ function winGame() {
 
 function insertLetter(key) {
     if (currentLength == MAX_LENGTH) {
-        return
+        return;
     }
 
     let pressedKey = key.toUpperCase();
@@ -129,9 +130,9 @@ function addLetter() {
 };
 
 function deleteAllLetters(){
-    let l = currentLength
+    let l = currentLength;
     for (let i = 0; i < l; i++) {
-        deleteLetter()
+        deleteLetter();
     } 
 }
 
@@ -174,9 +175,10 @@ function selectRow(below) {
         return;
     }
     if (below) {
-        currRow = belowRow
+        currRow = belowRow;
+        document.getElementById("select-below");
     } else {
-        currRow = aboveRow
+        currRow = aboveRow;
     }
     
     let row = document.querySelectorAll('input[name="row"]')[currRow];
@@ -198,23 +200,38 @@ document.addEventListener("keyup", (e) => {
       }
     if (pressedKey === "Enter") {
         checkGuess();
-        return
+        return;
     }
     if (/^[a-z]$/i.test(pressedKey)) {
         insertLetter(pressedKey);
-        return
+        return;
     }
     else {
-        return
+        return;
     }
 });
 
 document.getElementById("select-below").addEventListener("click", (e) => {selectRow(true)});
 document.getElementById("select-above").addEventListener("click", (e) => {selectRow(false)});
 
+let keys = document.querySelectorAll('button[name="key"]');
+for (let i=0; i<keys.length; i++) {
+    keys[i].addEventListener("click", (e) => {
+        
+        let key = e.target.textContent;
+        
+        if (key === "Del") {
+            key = "Backspace";
+        }
+    
+        document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+  });
+};
+
+
 initGame();
 
 let addLetterList = document.querySelectorAll('button[name="add-letter"]')
 for (let i=0; i<addLetterList.length; i++){
     addLetterList[i].addEventListener("click", addLetter);
-}
+};
