@@ -1,62 +1,59 @@
 import { WORDS } from "./words.js";
 import { buildBoard, BOARD_SIZE, MAX_LENGTH } from "./build-board.js";
+import { loadJson, saveJson, baseData } from "./save-load.js";
 
 let currentDate = new Date();
 let currMonth = currentDate.getMonth()+1;
 let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+currentDate.getDate()).slice(-2)}`;
 
 let words = WORDS[strDate];
-let minLengths = Array(BOARD_SIZE).fill(0);
-let currentLength = 0;
 
+let data = {"won":false, "minLengths":[words[0].length, 2, 4, 2, 0, 0, 0, 0, 0], "currRow":3};
+// let data = loadJson(strDate);
+
+let activeRowID = data['currRow']
+data["minLengths"][0] = words[0].length
+let currentLength = data['minLengths'][activeRowID];
 let activeRow = null;
-let activeRowID = 1;
-let belowRow = parseInt(localStorage.getItem("belowRow"));
-let won = parseFloat(localStorage.getItem("won"));
-let currRow = belowRow;
+
 let winInput = document.getElementById("winCheckbox");
 winInput.checked = false
 
 function initGame() {
-    if (localStorage.getItem("date") != strDate) {
-        belowRow = 1;
-        localStorage.setItem('belowRow', belowRow);
-        localStorage.setItem('date', strDate);
-        localStorage.setItem('won', false);
-    }
-
-    if (won) {
+    if (data["won"]) {
         winInput.checked = true;
+        winGame();
     }
 
     buildBoard()
 
-    for (let r=0; r<BOARD_SIZE; r++){
-        let row = document.querySelectorAll("input[name='row']")[r].parentElement.getElementsByTagName('div');
-        let word = words[r]
-        if (r < belowRow) {
-            for (let i = 0; i < word.length; i++) {
-                row[i].textContent = word[i];
-              } 
+    for (let r=0; r<=data['currRow']; r++) {
+        let word = words[r];
+        let rowInput = document.querySelectorAll("input[name='row']")[r]
+        if (r == activeRowID) {
+            rowInput.checked = true;
+            activeRow = rowInput.parentElement
         }
-    }
+        let row = rowInput.parentElement.getElementsByTagName('div');
+        
+        for (let cell=0; cell<words[r].length; cell++) {
 
-    selectRow();
-    
-    if (belowRow >= BOARD_SIZE) {
-        winGame();
+                row[cell].textContent = word[cell]
+        }
     }
 };
 
 function winGame() {
-    console.log("YOU WIN");
     winInput.checked = true;
-    localStorage.setItem("won", true);
     activeRow = null;
     let row = document.querySelector('input[name="row"]:checked');
     if (row) {
         row.checked = false;
     }
+    data["won"] = true;
+    saveJson(strDate, data);
+    console.log("YOU WIN");
+
 };
 
 function insertLetter(key) {
@@ -71,18 +68,18 @@ function insertLetter(key) {
 };
 
 function addLetter(help=true) {
-    if (belowRow >= BOARD_SIZE) {
+    if (activeRowID >= BOARD_SIZE) {
         return;
     }
     deleteAllLetters();
     let word = words[activeRowID];
-    if (minLengths[activeRowID] == word.length - 1){
+    if (data["minLengths"][activeRowID] == word.length - 1){
         console.log("FINAL LETTER")
         document.activeElement.blur();
         return;
     }
-    let key = word[minLengths[activeRowID]];
-    console.log('test')
+    let key = word[data["minLengths"][activeRowID]];
+
     let box = activeRow.getElementsByTagName('div')[currentLength];
     if (help) {
         box.classList.add("text-error")
@@ -92,8 +89,9 @@ function addLetter(help=true) {
 
 
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
-    minLengths[activeRowID] += 1;
-    currentLength = minLengths[activeRowID];
+    currentLength += 1;
+    data["minLengths"][activeRowID] += 1;
+    saveJson(strDate, data);
     document.activeElement.blur();
 };
 
@@ -108,31 +106,32 @@ function checkGuess() {
     let guess = activeRow.textContent.replace(/\W/g, "")
     let correctWord = words[activeRowID] 
     if (guess == correctWord) {
+        data["minLengths"][activeRowID] = correctWord.length;
 
-        for (let i=minLengths[activeRowID]; i<=correctWord.length; i++) {
+        for (let i=data["minLengths"][activeRowID]; i<=correctWord.length; i++) {
             let box = activeRow.getElementsByTagName('div')[i];
             box.classList.add("text-success");
         }
 
-        belowRow += 1;
-        localStorage.setItem('belowRow', belowRow);
-
+        activeRowID += 1;
+        data['currRow'] = activeRowID;
+        data["minLengths"][activeRowID] = correctWord.length1;
         selectRow();
-
-        if (belowRow >= BOARD_SIZE) {
+        if (activeRowID >= BOARD_SIZE) {
             winGame();
         }
+        addLetter(false);
 
-        return;
-
+        return
     } else {
         deleteAllLetters();
         addLetter();
     }
+    saveJson(strDate, data);
 };
 
 function deleteLetter() {
-    if (minLengths[activeRowID] >= currentLength) {
+    if (data["minLengths"][activeRowID] >= currentLength) {
         return;
     }
     let box = activeRow.getElementsByTagName('div')[currentLength-1];
@@ -141,22 +140,20 @@ function deleteLetter() {
 };
 
 function selectRow() {
-    if (belowRow >= BOARD_SIZE) {
+    if (activeRowID >= BOARD_SIZE) {
         return;
     }
 
-    currRow = belowRow;
     
-    let row = document.querySelectorAll('input[name="row"]')[currRow];
+    let row = document.querySelectorAll('input[name="row"]')[activeRowID];
     row.checked = true;
     activeRow = row.parentElement;
-    activeRowID = currRow;
-    currentLength = minLengths[activeRowID];
-    addLetter(false);
+
+    currentLength = data["minLengths"][activeRowID];
 };
 
 document.addEventListener("keyup", (e) => {
-    if (belowRow >= BOARD_SIZE) {
+    if (activeRowID >= BOARD_SIZE) {
         return;
     }
     let pressedKey = e.key;

@@ -1,13 +1,10 @@
-export const MAX_LENGTH = 10;
-export const BOARD_SIZE = 9;
-
 function buildBox() {
     let box = document.createElement("div");
     box.className = "flex items-center w-full min-w-[1em] text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-[oklch(var(--s))] peer-checked:group-[]:border-[oklch(var(--a))]";
     return box; 
 };
 
-function buildRow() {
+function buildRow(maxLength) {
     let row = document.createElement("div");
     row.className = "contents";
     
@@ -17,7 +14,7 @@ function buildRow() {
     input.setAttribute('name', "row");
     row.appendChild(input)
 
-    for (let r = 0; r < MAX_LENGTH; r++ ) {
+    for (let r = 0; r < maxLength; r++ ) {
         let box = buildBox();
         row.appendChild(box);
     }
@@ -25,11 +22,38 @@ function buildRow() {
     return row; 
 };
 
-export function buildBoard() {
+export function buildBoard(boardSize, maxLength) {
     let board = document.getElementById("game-board")
 
-    for (let r =0; r < BOARD_SIZE; r++ ) {
-        let row = buildRow();
+    for (let r =0; r < boardSize; r++ ) {
+        let row = buildRow(maxLength);
         board.appendChild(row);
+    }
+};
+
+export function populateBoard(words, data) {
+    for (let rowID=0; rowID<=data['currRow']; rowID++) {
+        let word = words[rowID];
+        let rowInput = document.querySelectorAll("input[name='row']")[rowID]
+        if (rowID == data['currRow']) {
+            rowInput.checked = true;
+        }
+
+        let row = rowInput.parentElement.getElementsByTagName('div');
+        
+        for (let cell=0; cell<words[rowID].length; cell++) {
+            if (cell <= data["minLengths"][rowID] || rowID < data["currRow"]) {
+                row[cell].textContent = word[cell]
+            }
+            if (rowID==0 || cell == 0) {
+                row[cell].classList.add("text-success")
+            }
+            if (cell > 0 && cell <= data['minLengths'][rowID]) {
+                row[cell].classList.add("text-warning")
+            }
+            if (cell >= data["minLengths"][rowID] && rowID < data['currRow']) {
+                row[cell].classList.add("text-success")
+            }
+        }
     }
 };
