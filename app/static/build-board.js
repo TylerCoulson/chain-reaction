@@ -42,13 +42,13 @@ export function populateBoard(words, data) {
         let row = rowInput.parentElement.getElementsByTagName('div');
         
         for (let cell=0; cell<words[rowID].length; cell++) {
-            if (cell <= data["minLengths"][rowID] || rowID < data["currRow"]) {
+            if (cell < data["minLengths"][rowID] || rowID < data["currRow"]) {
                 row[cell].textContent = word[cell]
             }
             if (rowID==0 || cell == 0) {
                 row[cell].classList.add("text-success")
             }
-            if (cell > 0 && cell <= data['minLengths'][rowID]) {
+            if (cell > 0 && cell < data['minLengths'][rowID]) {
                 row[cell].classList.add("text-warning")
             }
             if (cell >= data["minLengths"][rowID] && rowID < data['currRow']) {

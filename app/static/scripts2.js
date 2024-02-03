@@ -10,8 +10,8 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 
 let words = WORDS[strDate];
 
-let data = {"won":false, "minLengths":[0, 0, 0, 0, 0, 0, 0, 0, 0], "currRow":1};
-let currLength = data['minLengths'][data['currRow']]
+let data = {"won":false, "minLengths":[1, 1, 1, 1, 1, 1, 1, 1, 1], "currRow":1};
+let currentLength = data['minLengths'][data['currRow']]
 
 function initGame(words, data) {
 
@@ -26,16 +26,31 @@ function initGame(words, data) {
 }
 
 function insertLetter(letter, cell) {
-    if (currLength >= MAX_LENGTH) {
+    if (currentLength >= MAX_LENGTH) {
         return;
     }
     cell.textContent = letter.toUpperCase();
-    currLength += 1;
+    currentLength += 1;
+};
+
+function deleteLetter(cell) {
+    if (data["minLengths"][data['currRow']] > currentLength) {
+        return;
+    }
+    cell.textContent = ""
+    currentLength -= 1;
 };
 
 document.addEventListener("keyup", (e) => {
     let pressedKey = e.key;
-    let cell = document.querySelector('input[name="row"]:checked').parentElement.getElementsByTagName('div')[currLength + 1];
+    let cell = document.querySelector('input[name="row"]:checked').parentElement.getElementsByTagName('div')[currentLength];
+    
+
+    if (pressedKey === "Backspace" && currentLength > 0) {
+        deleteLetter(cell);
+        return;
+    }
+
     if (/^[a-z]$/i.test(pressedKey)) {
         insertLetter(pressedKey, cell);
         return;
