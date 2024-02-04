@@ -1,6 +1,9 @@
 import { WORDS } from "./words.js";
-import { buildBoard, BOARD_SIZE, MAX_LENGTH } from "./build-board.js";
-import { loadJson, saveJson, baseData } from "./save-load.js";
+import { buildBoard, populateBoard } from "./build-board.js";
+import { saveJson, loadJson } from "./save-load.js";
+
+export const MAX_LENGTH = 10;
+export const BOARD_SIZE = 9;
 
 let currentDate = new Date();
 let currMonth = currentDate.getMonth()+1;
@@ -8,171 +11,150 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 
 let words = WORDS[strDate];
 
-let data = {"won":false, "minLengths":[words[0].length, 2, 4, 2, 0, 0, 0, 0, 0], "currRow":3};
-// let data = loadJson(strDate);
-
-let activeRowID = data['currRow']
-data["minLengths"][0] = words[0].length
-let currentLength = data['minLengths'][activeRowID];
-let activeRow = null;
-
+let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":Array(BOARD_SIZE).fill(1), "currRow":1};
+let currentLength = data['minLengths'][data['currRow']];
 let winInput = document.getElementById("winCheckbox");
-winInput.checked = false
 
-function initGame() {
+function initGame(words, data) {
+
+    buildBoard(BOARD_SIZE, MAX_LENGTH);
+    
+    populateBoard(words, data);
+    
     if (data["won"]) {
         winInput.checked = true;
-        winGame();
+        winGame(strDate, data);
+    }
+}
+
+function insertLetter(letter, cell) {
+    if (currentLength >= MAX_LENGTH) {
+        return;
     }
 
-    buildBoard()
-
-    for (let r=0; r<=data['currRow']; r++) {
-        let word = words[r];
-        let rowInput = document.querySelectorAll("input[name='row']")[r]
-        if (r == activeRowID) {
-            rowInput.checked = true;
-            activeRow = rowInput.parentElement
-        }
-        let row = rowInput.parentElement.getElementsByTagName('div');
-        
-        for (let cell=0; cell<words[r].length; cell++) {
-
-                row[cell].textContent = word[cell]
-        }
-    }
+    cell.textContent = letter.toUpperCase();
+    currentLength += 1;
 };
 
-function winGame() {
+function deleteLetter(cell, data) {
+    if (data["minLengths"][data['currRow']] >= currentLength) {
+        return;
+    }
+    cell.textContent = ""
+    currentLength -= 1;
+};
+
+function deleteAllLetters(data){
+    for (let i = currentLength; i >= data["minLengths"][data["currRow"]]; i--) {
+        let cell = getCell(i-1);
+        deleteLetter(cell, data);
+    }
+
+};
+
+function addLetter(date, data) {
+
+    deleteAllLetters(data);
+    let word = words[data["currRow"]];
+    if (currentLength >= word.length) {
+        nextRow(date, data);
+        saveJson(date, data);
+        return;
+    }
+    let letterID = data["minLengths"][data['currRow']]
+    let key = word[letterID] 
+
+    document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+    data["minLengths"][data['currRow']] += 1;
+    getCell(letterID).classList.add("text-warning")
+    saveJson(date, data);
+};
+
+function getRow() {
+    return document.querySelector('input[name="row"]:checked').parentElement
+};
+
+function getCell(id){
+    let row = getRow();
+    let cell = row.getElementsByTagName('div')[id];
+    return cell
+};
+
+function checkGuess(date, data) {
+    let row = getRow();
+    let guess = row.textContent.replace(/\W/g, "");
+    let correctWord = words[data["currRow"]];
+
+    if (guess != correctWord) {
+        addLetter(strDate, data);
+        return
+    }
+    for (let c = data["minLengths"][data["currRow"]]; c<=correctWord.length; c++ ) {
+
+        let cell = row.getElementsByTagName('div')[c]
+        cell.classList.add("text-success");
+    }
+
+    nextRow(date, data);
+    saveJson(date, data);
+};
+
+function nextRow(date, data) {
+    data["currRow"] += 1;
+    if (data["currRow"] >= BOARD_SIZE) {
+        data["currRow"] = BOARD_SIZE;
+        winGame(date, data);
+        return;
+    }
+    
+    let rowInput = document.querySelectorAll("input[name='row']")[data["currRow"]]
+    rowInput.checked = true;
+    currentLength = 0;
+    let word = words[data["currRow"]];
+    let key = word[0] 
+    getCell(0).classList.add("text-success")
+    document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+};
+function winGame(date, data) {
+    console.log("YOU WIN");
     winInput.checked = true;
-    activeRow = null;
+    data["won"] = true;
     let row = document.querySelector('input[name="row"]:checked');
     if (row) {
         row.checked = false;
     }
-    data["won"] = true;
-    saveJson(strDate, data);
-    console.log("YOU WIN");
-
-};
-
-function insertLetter(key) {
-    if (currentLength == MAX_LENGTH) {
-        return;
-    }
-
-    let pressedKey = key.toUpperCase();
-    let box = activeRow.getElementsByTagName('div')[currentLength];
-    box.textContent = pressedKey
-    currentLength += 1;
-};
-
-function addLetter(help=true) {
-    if (activeRowID >= BOARD_SIZE) {
-        return;
-    }
-    deleteAllLetters();
-    let word = words[activeRowID];
-    if (data["minLengths"][activeRowID] == word.length - 1){
-        console.log("FINAL LETTER")
-        document.activeElement.blur();
-        return;
-    }
-    let key = word[data["minLengths"][activeRowID]];
-
-    let box = activeRow.getElementsByTagName('div')[currentLength];
-    if (help) {
-        box.classList.add("text-error")
-    } else{
-        box.classList.add("text-success")
-    }
-
-
-    document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
-    currentLength += 1;
-    data["minLengths"][activeRowID] += 1;
-    saveJson(strDate, data);
-    document.activeElement.blur();
-};
-
-function deleteAllLetters(){
-    let l = currentLength;
-    for (let i = 0; i < l; i++) {
-        deleteLetter();
-    } 
-}
-
-function checkGuess() {
-    let guess = activeRow.textContent.replace(/\W/g, "")
-    let correctWord = words[activeRowID] 
-    if (guess == correctWord) {
-        data["minLengths"][activeRowID] = correctWord.length;
-
-        for (let i=data["minLengths"][activeRowID]; i<=correctWord.length; i++) {
-            let box = activeRow.getElementsByTagName('div')[i];
-            box.classList.add("text-success");
-        }
-
-        activeRowID += 1;
-        data['currRow'] = activeRowID;
-        data["minLengths"][activeRowID] = correctWord.length1;
-        selectRow();
-        if (activeRowID >= BOARD_SIZE) {
-            winGame();
-        }
-        addLetter(false);
-
-        return
-    } else {
-        deleteAllLetters();
-        addLetter();
-    }
-    saveJson(strDate, data);
-};
-
-function deleteLetter() {
-    if (data["minLengths"][activeRowID] >= currentLength) {
-        return;
-    }
-    let box = activeRow.getElementsByTagName('div')[currentLength-1];
-    box.textContent = ""
-    currentLength -= 1;
-};
-
-function selectRow() {
-    if (activeRowID >= BOARD_SIZE) {
-        return;
-    }
-
-    
-    let row = document.querySelectorAll('input[name="row"]')[activeRowID];
-    row.checked = true;
-    activeRow = row.parentElement;
-
-    currentLength = data["minLengths"][activeRowID];
+    saveJson(date, data);
 };
 
 document.addEventListener("keyup", (e) => {
-    if (activeRowID >= BOARD_SIZE) {
-        return;
-    }
     let pressedKey = e.key;
 
     if (pressedKey === "Backspace" && currentLength > 0) {
-        deleteLetter();
+        let cell = getCell(currentLength-1)
+        deleteLetter(cell, data);
         return;
-      }
+    }
     if (pressedKey === "Enter") {
-        checkGuess();
+        checkGuess(strDate, data);
         return;
     }
     if (/^[a-z]$/i.test(pressedKey)) {
-        insertLetter(pressedKey);
+
+        let cell = getCell(currentLength)
+        insertLetter(pressedKey, cell);
         return;
     }
     else {
         return;
     }
+});
+
+
+document.getElementById('addLetter').addEventListener("click", (e) => {
+    if (data["won"]) {
+        return;
+    }
+    addLetter(strDate, data);
 });
 
 let keys = document.querySelectorAll('button[name="key"]');
@@ -189,6 +171,4 @@ for (let i=0; i<keys.length; i++) {
   });
 };
 
-document.getElementById('addLetter').addEventListener("click", addLetter);
-
-initGame();
+initGame(words, data);
