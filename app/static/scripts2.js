@@ -57,6 +57,8 @@ function addLetter(date, data) {
     deleteAllLetters(data);
     let word = words[data["currRow"]];
     if (currentLength >= word.length) {
+        nextRow(date, data);
+        saveJson(date, data);
         return;
     }
     let letterID = data["minLengths"][data['currRow']]
@@ -93,13 +95,18 @@ function checkGuess(date, data) {
         cell.classList.add("text-success");
     }
 
+    nextRow(date, data);
+    saveJson(date, data);
+};
+
+function nextRow(date, data) {
     data["currRow"] += 1;
-    if (data["currRow"]+1 >= BOARD_SIZE) {
+    if (data["currRow"] >= BOARD_SIZE) {
         data["currRow"] = BOARD_SIZE;
-        winGame(strDate, data);
+        winGame(date, data);
         return;
     }
-
+    
     let rowInput = document.querySelectorAll("input[name='row']")[data["currRow"]]
     rowInput.checked = true;
     currentLength = 0;
@@ -107,9 +114,7 @@ function checkGuess(date, data) {
     let key = word[0] 
     getCell(0).classList.add("text-success")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
-    saveJson(date, data);
 };
-
 function winGame(date, data) {
     console.log("YOU WIN");
     winInput.checked = true;
@@ -146,7 +151,9 @@ document.addEventListener("keyup", (e) => {
 
 
 document.getElementById('addLetter').addEventListener("click", (e) => {
-    
+    if (data["won"]) {
+        return;
+    }
     addLetter(strDate, data);
 });
 
