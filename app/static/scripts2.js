@@ -1,6 +1,6 @@
 import { WORDS } from "./words.js";
 import { buildBoard, populateBoard } from "./build-board.js";
-import { saveJson } from "./save-load.js";
+import { saveJson, loadJson } from "./save-load.js";
 
 export const MAX_LENGTH = 10;
 export const BOARD_SIZE = 9;
@@ -11,7 +11,7 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 
 let words = WORDS[strDate];
 
-let data = {"won":false, "minLengths":[1, 1, 1, 1, 1, 1, 1, 1, 1], "currRow":1};
+let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":[1, 1, 1, 1, 1, 1, 1, 1, 1], "currRow":1};
 let currentLength = data['minLengths'][data['currRow']];
 
 function initGame(words, data) {
