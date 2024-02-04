@@ -11,8 +11,9 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 
 let words = WORDS[strDate];
 
-let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":[1, 1, 1, 1, 1, 1, 1, 1, 1], "currRow":1};
+let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":Array(BOARD_SIZE).fill(1), "currRow":1};
 let currentLength = data['minLengths'][data['currRow']];
+let winInput = document.getElementById("winCheckbox");
 
 function initGame(words, data) {
 
@@ -22,7 +23,7 @@ function initGame(words, data) {
     
     if (data["won"]) {
         winInput.checked = true;
-        winGame();
+        winGame(strDate, data);
     }
 }
 
@@ -93,6 +94,12 @@ function checkGuess(date, data) {
     }
 
     data["currRow"] += 1;
+    if (data["currRow"]+1 >= BOARD_SIZE) {
+        data["currRow"] = BOARD_SIZE;
+        winGame(strDate, data);
+        return;
+    }
+
     let rowInput = document.querySelectorAll("input[name='row']")[data["currRow"]]
     rowInput.checked = true;
     currentLength = 0;
@@ -101,9 +108,17 @@ function checkGuess(date, data) {
     getCell(0).classList.add("text-success")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
     saveJson(date, data);
+};
 
-
-
+function winGame(date, data) {
+    console.log("YOU WIN");
+    winInput.checked = true;
+    data["won"] = true;
+    let row = document.querySelector('input[name="row"]:checked');
+    if (row) {
+        row.checked = false;
+    }
+    saveJson(date, data);
 };
 
 document.addEventListener("keyup", (e) => {

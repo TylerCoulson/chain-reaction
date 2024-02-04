@@ -33,6 +33,10 @@ export function buildBoard(boardSize, maxLength) {
 
 export function populateBoard(words, data) {
     for (let rowID=0; rowID<=data['currRow']; rowID++) {
+        if (rowID >= data["minLengths"].length) {
+            break;
+        };
+
         let word = words[rowID];
         let rowInput = document.querySelectorAll("input[name='row']")[rowID]
         if (rowID == data['currRow']) {
