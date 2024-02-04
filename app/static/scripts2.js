@@ -52,7 +52,6 @@ function deleteAllLetters(data){
 };
 
 function addLetter(date, data) {
-    console.log('add', currentLength)
 
     deleteAllLetters(data);
     let word = words[data["currRow"]];
@@ -78,6 +77,35 @@ function getCell(id){
     return cell
 };
 
+function checkGuess(date, data) {
+    let row = getRow();
+    let guess = row.textContent.replace(/\W/g, "");
+    let correctWord = words[data["currRow"]];
+
+    if (guess != correctWord) {
+        addLetter(strDate, data);
+        return
+    }
+    for (let c = data["minLengths"][data["currRow"]]; c<=correctWord.length; c++ ) {
+
+        let cell = row.getElementsByTagName('div')[c]
+        cell.classList.add("text-success");
+    }
+
+    data["currRow"] += 1;
+    let rowInput = document.querySelectorAll("input[name='row']")[data["currRow"]]
+    rowInput.checked = true;
+    currentLength = 0;
+    let word = words[data["currRow"]];
+    let key = word[0] 
+    getCell(0).classList.add("text-success")
+    document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+    saveJson(date, data);
+
+
+
+};
+
 document.addEventListener("keyup", (e) => {
     let pressedKey = e.key;
 
@@ -86,7 +114,10 @@ document.addEventListener("keyup", (e) => {
         deleteLetter(cell, data);
         return;
     }
-
+    if (pressedKey === "Enter") {
+        checkGuess(strDate, data);
+        return;
+    }
     if (/^[a-z]$/i.test(pressedKey)) {
 
         let cell = getCell(currentLength)
