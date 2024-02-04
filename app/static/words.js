@@ -15,7 +15,7 @@ export const WORDS = {
     "2024-02-09":["", "", "", "", "", "", "", "", ""],
    
    
-    "2024-06-01":["LEATHER","GLOVE","BOX","TOP","QUALITY","ISSUE","ALERT","TONE","SCALE"],
+    "2024-06-01":["LEATHER","GLOVE","BOX","TOP","QUALITY","ISSUE","ALERT","TONE","SETTER"],
     "2024-06-02":["AIDS","CRISIS","CENTER","STAGE","WHISPER","CAMPAIGN","GROUP","ACTION","REQUIRED"],
     "2024-06-28":["STONEWALL","RIOT","GEAR","HEAD","HIGH","TOP","SECRET","POLICE","BRUTALITY"]
 }
