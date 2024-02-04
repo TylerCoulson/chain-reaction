@@ -157,4 +157,18 @@ document.getElementById('addLetter').addEventListener("click", (e) => {
     addLetter(strDate, data);
 });
 
+let keys = document.querySelectorAll('button[name="key"]');
+for (let i=0; i<keys.length; i++) {
+    keys[i].addEventListener("click", (e) => {
+        
+        let key = e.target.textContent;
+        
+        if (key === "Del") {
+            key = "Backspace";
+        }
+    
+        document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+  });
+};
+
 initGame(words, data);
