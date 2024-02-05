@@ -66,7 +66,7 @@ function addLetter(date, data) {
 
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
     data["minLengths"][data['currRow']] += 1;
-    getCell(letterID).classList.add("bg-red-700")
+    getCell(letterID).classList.add("bg-error")
     saveJson(date, data);
 };
 
@@ -92,7 +92,7 @@ function checkGuess(date, data) {
     for (let c = data["minLengths"][data["currRow"]]; c<MAX_LENGTH; c++ ) {
 
         let cell = row.getElementsByTagName('div')[c]
-        cell.classList.add("bg-green-700");
+        cell.classList.add("bg-success");
     }
 
     nextRow(date, data);
@@ -112,7 +112,7 @@ function nextRow(date, data) {
     currentLength = 0;
     let word = words[data["currRow"]];
     let key = word[0] 
-    getCell(0).classList.add("bg-green-700")
+    getCell(0).classList.add("bg-success")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
 };
 function winGame(date, data) {

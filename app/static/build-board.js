@@ -50,13 +50,13 @@ export function populateBoard(words, data, maxLength) {
                 row[cell].textContent = word[cell]
             }
             if (rowID==0 || cell == 0) {
-                row[cell].classList.add("bg-green-700")
+                row[cell].classList.add("bg-success")
             }
             if (cell > 0 && cell < data['minLengths'][rowID]) {
-                row[cell].classList.add("bg-red-700")
+                row[cell].classList.add("bg-error")
             }
             if (cell >= data["minLengths"][rowID] && rowID < data['currRow']) {
-                row[cell].classList.add("bg-green-700")
+                row[cell].classList.add("bg-success")
             }
         }
     }
