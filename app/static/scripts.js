@@ -19,7 +19,7 @@ function initGame(words, data) {
 
     buildBoard(BOARD_SIZE, MAX_LENGTH);
     
-    populateBoard(words, data);
+    populateBoard(words, data, MAX_LENGTH);
     
     if (data["won"]) {
         winInput.checked = true;
@@ -89,7 +89,7 @@ function checkGuess(date, data) {
         addLetter(strDate, data);
         return
     }
-    for (let c = data["minLengths"][data["currRow"]]; c<correctWord.length; c++ ) {
+    for (let c = data["minLengths"][data["currRow"]]; c<MAX_LENGTH; c++ ) {
 
         let cell = row.getElementsByTagName('div')[c]
         cell.classList.add("bg-green-700");

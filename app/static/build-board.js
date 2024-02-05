@@ -31,7 +31,7 @@ export function buildBoard(boardSize, maxLength) {
     }
 };
 
-export function populateBoard(words, data) {
+export function populateBoard(words, data, maxLength) {
     for (let rowID=0; rowID<=data['currRow']; rowID++) {
         if (rowID >= data["minLengths"].length) {
             break;
@@ -45,7 +45,7 @@ export function populateBoard(words, data) {
 
         let row = rowInput.parentElement.getElementsByTagName('div');
         
-        for (let cell=0; cell<words[rowID].length; cell++) {
+        for (let cell=0; cell<maxLength; cell++) {
             if (cell < data["minLengths"][rowID] || rowID < data["currRow"]) {
                 row[cell].textContent = word[cell]
             }
