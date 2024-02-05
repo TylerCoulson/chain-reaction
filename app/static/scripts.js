@@ -89,7 +89,7 @@ function checkGuess(date, data) {
         addLetter(strDate, data);
         return
     }
-    for (let c = data["minLengths"][data["currRow"]]; c<=correctWord.length; c++ ) {
+    for (let c = data["minLengths"][data["currRow"]]; c<correctWord.length; c++ ) {
 
         let cell = row.getElementsByTagName('div')[c]
         cell.classList.add("bg-green-700");
