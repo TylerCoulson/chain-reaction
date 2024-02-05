@@ -11,10 +11,10 @@
         <script src="https://cdn.tailwindcss.com"></script>
     
     </head>
-    <input type="checkbox" id="how-to-play" class="modal-toggle" />
+    <input type="checkbox" id="how-to-play" class="modal-toggle" checked/>
     <div class="modal" role="dialog">
         <div class="modal-box">
-            <label for="how-to-play" class="absolute top-0 right-0 modal-action">
+            <label for="how-to-play" class="absolute top-0 right-4 btn btn-ghost modal-action">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
@@ -24,6 +24,7 @@
             <ul class="my-3 text-sm list-disc list-inside">
                 <li class="m-1">You are given the first word in the chain</li>
                 <li class="m-1">The next word will be part of a two-word phrase or compound word</li>
+                <li class="m-1">Words will be at least 3 letters</li>
                 <li class="m-1">After a correct guess the first letter of the next word will be shown</li>
                 <li class="m-1">Incorrect guesses will add a letter to the word and be marked red</li>
                 <li class="m-1">If you're stuck you can add a letter</li>
@@ -69,8 +70,8 @@
 
             </div>
 
-            <div id="keyboard" class="flex flex-col justify-center w-full font-bold text-[1.25em] leading-[1.15] max-w-lg mx-auto my-0 justify-self-center m-w-full">
-                <div class="flex justify-center w-full m-[0_auto_8px] group-has-[:checked]:hidden">
+            <div id="keyboard" class="flex flex-col justify-center w-full font-bold text-[1.25em] leading-[1.15] max-w-lg mx-auto my-0 justify-self-center m-w-full group">
+                <div class="flex justify-center w-full m-[0_auto_8px] invisible">
                     <button id="addLetter" class="rounded-md border-collapse border-primary border text-primary active:scale-95 hover:text-base-100 hover:bg-primary mr-1.5 h-[56px] cursor-pointer uppercase select-none flex-1 justify-center items-center">Add Letter</button>
                 </div>
                 <div class="flex justify-center w-full m-[0_auto_8px]">
