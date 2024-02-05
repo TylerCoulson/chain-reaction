@@ -12,10 +12,16 @@ export const WORDS = {
     "2024-02-06":["LIGHT", "NOVEL", "IDEA", "MAN", "CHILD", "SOLDIER", "CRAB", "TREE", "HUGGER"],
     "2024-02-07":["ARRIVAL", "GATE", "KEEP", "BACK", "COVER", "LETTER", "GRADE", "CROSSING", "SWORDS"],
     "2024-02-08":["THOUGHT", "EXPERIMENT", "PROCESS", "ERROR", "MESSAGE", "BOARD", "GAME", "CONSOLE", "TABLE"],
-    "2024-02-09":["", "", "", "", "", "", "", "", ""],
-   
+    "2024-02-09":["GOLF", "COURSE", "CREDIT", "REPORT", "CARD", "COUNTING", "SHEEP", "SHEARING", "KNIFE"],
+    "2024-02-10":["TRIP", "OVER", "HEAD", "VOICE", "MAIL", "CARRIER", "PIGEON", "RACING", "THOUGHTS"],
+    "2024-02-11":["GOLDEN", "FLEECE", "BLANKET", "TERM", "PAPER", "CRANE", "OPERATOR", "ERROR", "CODE"],
+    "2024-02-12":["RED", "CARD", "KEY", "CHAIN", "LETTER", "BOX", "SEATS", "TAKEN", "ABACK"],
+    "2024-02-13":["STAGE", "LEFT", "TURN", "AROUND", "TOWN", "CENTER", "ICE", "BATH", "TUB"],
+    "2024-02-14":["PLANET", "EARTH", "SCIENCE", "FACT", "BOOK", "TOUR", "GUIDE", "ALONG", "SIDE"],
+    "2024-02-29":["", "", "", "", "", "", "", "", ""],
    
     "2024-06-01":["LEATHER","GLOVE","BOX","TOP","QUALITY","ISSUE","ALERT","TONE","SETTER"],
     "2024-06-02":["AIDS","CRISIS","CENTER","STAGE","WHISPER","CAMPAIGN","GROUP","ACTION","REQUIRED"],
-    "2024-06-28":["STONEWALL","RIOT","GEAR","HEAD","HIGH","TOP","SECRET","POLICE","BRUTALITY"]
+    "2024-06-28":["STONEWALL","RIOT","GEAR","HEAD","HIGH","TOP","SECRET","POLICE","BRUTALITY"],
+    "2025-02-01":["", "", "", "", "", "", "", "", ""],
 }
