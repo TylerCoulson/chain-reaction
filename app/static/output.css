@@ -513,7 +513,7 @@ html {
   --ac: 0.167982 0.03191 81.088904;
   --inc: 0.171119 0.017054 206.015183;
   --suc: 0.894463 0.025198 149.442877;
-  --wac: 0.171139 0.016961 74.427797;
+  --wac: 0.884115 0.024497 296.555196;
   --erc: 0.907428 0.043927 29.154127;
   --animation-btn: 0.25s;
   --animation-input: .2s;
@@ -531,7 +531,7 @@ html {
   --bc: 0.773835 0.043586 245.096534;
   --in: 0.855596 0.085271 206.015183;
   --su: 0.472313 0.125989 149.442877;
-  --wa: 0.855695 0.084806 74.427797;
+  --wa: 0.420576 0.122487 296.555196;
   --er: 0.53714 0.219637 29.154127;
   --rounded-box: 1.2rem;
   --rounded-btn: 0.8rem;
@@ -1620,6 +1620,11 @@ html {
 .bg-success {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-su,oklch(var(--su)/var(--tw-bg-opacity)));
+}
+
+.bg-warning {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity)));
 }
 
 .px-2 {

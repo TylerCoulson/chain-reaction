@@ -51,7 +51,7 @@ export function populateBoard(words, data, maxLength) {
                 row[cell].textContent = word[cell]
             }
             if (rowID==0 || cell == 0) {
-                row[cell].classList.add("bg-success")
+                row[cell].classList.add("bg-warning")
             }
             if (cell > 0 && cell < data['minLengths'][rowID]) {
                 row[cell].classList.add("bg-error")

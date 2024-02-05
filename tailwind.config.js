@@ -19,7 +19,7 @@ module.exports = {
         "base-content": "#9fb9d0",
         "info": "#89e0eb",
         "success": "#0e6e31",
-        "warning": "#f1c891",
+        "warning": "#553b87",
         "error": "#cf0202",
         "--rounded-box": "1.2rem",
         "--rounded-btn": "0.8rem",

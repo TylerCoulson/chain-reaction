@@ -111,7 +111,7 @@ function nextRow(date, data) {
     currentLength = 0;
     let word = words[data["currRow"]];
     let key = word[0] 
-    getCell(0).classList.add("bg-success")
+    getCell(0).classList.add("bg-warning")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
 };
 
