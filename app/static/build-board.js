@@ -1,18 +1,19 @@
 function buildBox() {
     let box = document.createElement("div");
-    box.className = "flex items-center w-full min-w-[1em] text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-secondary peer-checked:group-[]:border-neutral-content ";
+    box.className = "flex items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-secondary peer-checked:group-[]:border-neutral-content";
     return box; 
 };
 
-function buildRow(maxLength) {
+function buildRow(maxLength, idName) {
     let row = document.createElement("div");
     row.className = "contents";
-    
-    let input = document.createElement("input");
-    input.className = "hidden peer";
-    input.setAttribute('type', 'radio');
-    input.setAttribute('name', "row");
-    row.appendChild(input)
+    if (idName == "game-board") {
+        let input = document.createElement("input");
+        input.className = "hidden peer";
+        input.setAttribute('type', 'radio');
+        input.setAttribute('name', "row");
+        row.appendChild(input)
+    }
 
     for (let r = 0; r < maxLength; r++ ) {
         let box = buildBox();
@@ -22,11 +23,11 @@ function buildRow(maxLength) {
     return row; 
 };
 
-export function buildBoard(boardSize, maxLength) {
-    let board = document.getElementById("game-board")
+export function buildBoard(boardSize, maxLength, idName) {
+    let board = document.getElementById(idName)
 
-    for (let r =0; r < boardSize; r++ ) {
-        let row = buildRow(maxLength);
+    for (let r=0; r < boardSize; r++ ) {
+        let row = buildRow(maxLength, idName);
         board.appendChild(row);
     }
 };

@@ -1,9 +1,9 @@
 import { WORDS } from "./words.js";
 import { buildBoard, populateBoard } from "./build-board.js";
 import { saveJson, loadJson } from "./save-load.js";
-
-export const MAX_LENGTH = 10;
-export const BOARD_SIZE = 9;
+import { winGame } from "./end-game.js"
+export const MAX_LENGTH = 9;
+export const BOARD_SIZE = 7;
 
 let currentDate = new Date();
 let currMonth = currentDate.getMonth()+1;
@@ -17,13 +17,12 @@ let winInput = document.getElementById("winCheckbox");
 
 function initGame(words, data) {
 
-    buildBoard(BOARD_SIZE, MAX_LENGTH);
+    buildBoard(BOARD_SIZE, MAX_LENGTH, "game-board");
     
     populateBoard(words, data, MAX_LENGTH);
     
-    if (data["won"]) {
-        winInput.checked = true;
-        winGame(strDate, data);
+    if (data["won"] || data["currRow"] == BOARD_SIZE) {
+        winGame(strDate, data, BOARD_SIZE, MAX_LENGTH, winInput);
     }
 }
 
@@ -103,7 +102,7 @@ function nextRow(date, data) {
     data["currRow"] += 1;
     if (data["currRow"] >= BOARD_SIZE) {
         data["currRow"] = BOARD_SIZE;
-        winGame(date, data);
+        winGame(strDate, data, BOARD_SIZE, MAX_LENGTH, winInput);
         return;
     }
     
@@ -114,16 +113,6 @@ function nextRow(date, data) {
     let key = word[0] 
     getCell(0).classList.add("bg-success")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
-};
-function winGame(date, data) {
-    console.log("YOU WIN");
-    winInput.checked = true;
-    data["won"] = true;
-    let row = document.querySelector('input[name="row"]:checked');
-    if (row) {
-        row.checked = false;
-    }
-    saveJson(date, data);
 };
 
 document.addEventListener("keyup", (e) => {
