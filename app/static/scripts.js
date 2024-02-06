@@ -12,7 +12,7 @@ let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+
 let beginWord = WORDS[strDate][0]
 let words = WORDS[strDate][1];
 
-let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":Array(BOARD_SIZE).fill(1), "currRow":1};
+let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":Array(BOARD_SIZE).fill(1), "currRow":0};
 let currentLength = data['minLengths'][data['currRow']];
 let winInput = document.getElementById("winCheckbox");
 
