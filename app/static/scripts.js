@@ -9,14 +9,15 @@ let currentDate = new Date();
 let currMonth = currentDate.getMonth()+1;
 let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+currentDate.getDate()).slice(-2)}`;
 
-let words = WORDS[strDate];
+let beginWord = WORDS[strDate][0]
+let words = WORDS[strDate][1];
 
 let data = loadJson(strDate) ? loadJson(strDate) : {"won":false, "minLengths":Array(BOARD_SIZE).fill(1), "currRow":1};
 let currentLength = data['minLengths'][data['currRow']];
 let winInput = document.getElementById("winCheckbox");
 
 function initGame(words, data) {
-
+    document.getElementById("base-word").textContent = beginWord;
     buildBoard(BOARD_SIZE, MAX_LENGTH, "game-board");
     
     populateBoard(words, data, MAX_LENGTH);

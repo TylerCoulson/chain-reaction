@@ -46,18 +46,18 @@ export function populateBoard(words, data, maxLength) {
 
         let row = rowInput.parentElement.getElementsByTagName('div');
         
-        for (let cell=0; cell<maxLength; cell++) {
-            if (cell < data["minLengths"][rowID] || rowID < data["currRow"]) {
-                row[cell].textContent = word[cell]
+        for (let column=0; column<maxLength; column++) {
+            if (column < data["minLengths"][rowID] || rowID < data["currRow"]) {
+                row[column].textContent = word[column]
             }
-            if (rowID==0 || cell == 0) {
-                row[cell].classList.add("bg-warning")
+            if (column == 0) {
+                row[column].classList.add("bg-warning")
             }
-            if (cell > 0 && cell < data['minLengths'][rowID]) {
-                row[cell].classList.add("bg-error")
+            if (column > 0 && column < data['minLengths'][rowID]) {
+                row[column].classList.add("bg-error")
             }
-            if (cell >= data["minLengths"][rowID] && rowID < data['currRow']) {
-                row[cell].classList.add("bg-success")
+            if (column >= data["minLengths"][rowID] && rowID < data['currRow']) {
+                row[column].classList.add("bg-success")
             }
         }
     }
