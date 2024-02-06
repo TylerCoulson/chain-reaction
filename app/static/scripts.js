@@ -68,6 +68,10 @@ function addLetter(date, data) {
     data["minLengths"][data['currRow']] += 1;
     getCell(letterID).classList.add("bg-error")
     saveJson(date, data);
+    if (letterID == word.length - 1){
+        checkGuess(date, data);
+        return;
+    }
 };
 
 function getRow() {
