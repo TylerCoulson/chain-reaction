@@ -1,8 +1,8 @@
 function buildBox(c=0) {
     let box = document.createElement("div");
-    box.className = "flex items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-none peer-checked:group-[]:border-neutral-content group";
+    box.className = "flex items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-none peer-checked:group-[]:border-neutral-content group/row";
     let cell = document.createElement("div");
-    cell.className = "flex items-center justify-center border-0 w-full h-full rounded peer-checked:group-[]:border-2 peer-checked:group-[]:border-secondary";
+    cell.className = "flex items-center justify-center border-0 w-full h-full rounded peer-checked:group-[]/row:border-2 peer-checked:group-[]/row:border-secondary";
     box.appendChild(cell)
     return box; 
 };

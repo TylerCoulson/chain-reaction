@@ -1815,18 +1815,18 @@ html {
   border-style: none;
 }
 
-.peer:checked ~ .group .peer-checked\:group-\[\]\:border-2 {
+.peer:checked ~ .group\/row .peer-checked\:group-\[\]\/row\:border-2 {
   border-width: 2px;
+}
+
+.peer:checked ~ .group\/row .peer-checked\:group-\[\]\/row\:border-secondary {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-s,oklch(var(--s)/var(--tw-border-opacity)));
 }
 
 .peer:checked ~ .group .peer-checked\:group-\[\]\:border-neutral-content {
   --tw-border-opacity: 1;
   border-color: var(--fallback-nc,oklch(var(--nc)/var(--tw-border-opacity)));
-}
-
-.peer:checked ~ .group .peer-checked\:group-\[\]\:border-secondary {
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-s,oklch(var(--s)/var(--tw-border-opacity)));
 }
 
 .peer:checked ~ .group .peer-checked\:group-\[\]\:text-neutral-content {
