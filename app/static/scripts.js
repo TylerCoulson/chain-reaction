@@ -131,6 +131,8 @@ function nextRow(date, data) {
     for (let c = 0; c<MAX_LENGTH; c++ ) {
         let cell = row.childNodes[c+1];
         cell.classList.remove("animate-flip");
+        cell.classList.add("animate-scale");
+        setTimeout(()=> {cell.classList.remove("animate-scale");}, `2000`);
     }
 };
 
