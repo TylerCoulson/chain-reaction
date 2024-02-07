@@ -1,12 +1,13 @@
-function buildBox() {
+function buildBox(c=0) {
     let box = document.createElement("div");
+
     box.className = "flex items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-secondary peer-checked:group-[]:border-neutral-content";
     return box; 
 };
 
 function buildRow(maxLength, idName) {
     let row = document.createElement("div");
-    row.className = "contents";
+    row.className = "contents row";
     if (idName == "game-board") {
         let input = document.createElement("input");
         input.className = "hidden peer";
@@ -16,7 +17,7 @@ function buildRow(maxLength, idName) {
     }
 
     for (let r = 0; r < maxLength; r++ ) {
-        let box = buildBox();
+        let box = buildBox(r);
         row.appendChild(box);
     }
     
@@ -47,6 +48,10 @@ export function populateBoard(words, data, maxLength) {
         let row = rowInput.parentElement.getElementsByTagName('div');
         
         for (let column=0; column<maxLength; column++) {
+            if (rowID <= data["currRow"]) {
+                row[column].classList.add("animate-flip")
+
+            }
             if (column < data["minLengths"][rowID] || rowID < data["currRow"]) {
                 row[column].textContent = word[column]
             }

@@ -94,7 +94,6 @@ function checkGuess(date, data) {
         return
     }
     for (let c = data["minLengths"][data["currRow"]]; c<MAX_LENGTH; c++ ) {
-
         let cell = row.getElementsByTagName('div')[c]
         cell.classList.add("bg-success");
     }

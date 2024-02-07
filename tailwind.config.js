@@ -1,8 +1,39 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   content: ["./app/**/*.{html,js}"],
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), plugin(({ matchUtilities, theme }) => {
+    matchUtilities(
+      {
+        "animation-delay": (value) => {
+          return {
+            "animation-delay": value,
+          };
+        },
+      },
+      {
+        values: theme("transitionDelay"),
+      }
+    );
+  }),],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        flip: {
+          '0%': { transform: 'rotateX(0.0deg)',
+                  background: 'base-100'
+          },
+          '45%': { transform: 'rotateX(90deg)',
+                   background: 'base-100'
+          },
+          '55%': { transform: 'rotateX(90deg)' },
+          '100%': { transform: 'rotateX(0.0deg)' },
+        },
+      },
+      animation: {
+        'flip': 'flip 2s linear forwards',
+      },
+    },
   },
   daisyui: {
     themes: [
