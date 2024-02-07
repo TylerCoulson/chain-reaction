@@ -102,13 +102,13 @@ function checkGuess(date, data) {
     }
     for (let c = 0; c<MAX_LENGTH; c++ ) {
         let cell = row.childNodes[c+1];
-        if (c >= data["minLengths"][data["currRow"]]) {
-            cell.classList.add("bg-success");
-        }
         cell.classList.add("animate-flip")
+        if (c >= data["minLengths"][data["currRow"]]) {
+            setTimeout(()=> {cell.classList.add("bg-success")}, `${c*100+400}`)
+            ;
+        }
     }
-
-    nextRow(date, data);
+    setTimeout(()=> {nextRow(date, data)}, "1000")
     saveJson(date, data);
 };
 

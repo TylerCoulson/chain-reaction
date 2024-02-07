@@ -1530,18 +1530,24 @@ html {
 @keyframes flip {
   0% {
     transform: rotateX(0.0deg);
+    background-color: transparent;
+    border-color: --border-color;
   }
 
   45% {
     transform: rotateX(90deg);
+    background-color: transparent;
+    border-color: --border-color;
   }
 
   55% {
     transform: rotateX(90deg);
+    background-color: --background;
   }
 
   100% {
     transform: rotateX(0.0deg);
+    background-color: --background;
   }
 }
 
@@ -1749,6 +1755,16 @@ html {
 .text-primary {
   --tw-text-opacity: 1;
   color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
+}
+
+.transition-\[border-color\] {
+  transition-property: border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
 }
 
 .row > div:nth-child(0) {
