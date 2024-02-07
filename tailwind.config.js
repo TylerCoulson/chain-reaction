@@ -20,14 +20,10 @@ module.exports = {
     extend: {
       keyframes: {
         flip: {
-          '0%': { transform: 'rotateX(0.0deg)',
-                  background: 'base-100'
-          },
-          '45%': { transform: 'rotateX(90deg)',
-                   background: 'base-100'
-          },
-          '55%': { transform: 'rotateX(90deg)' },
-          '100%': { transform: 'rotateX(0.0deg)' },
+          '0%': { transform: 'rotateX(0.0deg)'},
+          '45%': { transform: 'rotateX(90deg)'},
+          '55%': { transform: 'rotateX(90deg)'},
+          '100%': { transform: 'rotateX(0.0deg)'},
         },
         scale: {
           '0%': { transform: 'scale(1);'},

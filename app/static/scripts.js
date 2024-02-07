@@ -25,6 +25,11 @@ function initGame(words, data) {
     if (data["won"] || data["currRow"] == BOARD_SIZE) {
         winGame(strDate, data, BOARD_SIZE, MAX_LENGTH, winInput);
     }
+    let row = getRow();
+    for (let c = 0; c<MAX_LENGTH; c++ ) {
+        let cell = row.childNodes[c+1];
+        cell.classList.remove("animate-flip");
+    }
 }
 
 function insertLetter(letter, cell) {
@@ -100,6 +105,7 @@ function checkGuess(date, data) {
         if (c >= data["minLengths"][data["currRow"]]) {
             cell.classList.add("bg-success");
         }
+        cell.classList.add("animate-flip")
     }
 
     nextRow(date, data);
@@ -121,6 +127,11 @@ function nextRow(date, data) {
     let key = word[0] 
     getCell(0).classList.add("bg-warning")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+    let row = getRow();
+    for (let c = 0; c<MAX_LENGTH; c++ ) {
+        let cell = row.childNodes[c+1];
+        cell.classList.remove("animate-flip");
+    }
 };
 
 document.addEventListener("keyup", (e) => {

@@ -1530,12 +1530,10 @@ html {
 @keyframes flip {
   0% {
     transform: rotateX(0.0deg);
-    background: base-100;
   }
 
   45% {
     transform: rotateX(90deg);
-    background: base-100;
   }
 
   55% {
