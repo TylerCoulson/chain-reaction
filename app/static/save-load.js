@@ -1,11 +1,13 @@
 export function saveJson(date, obj) {
-    console.log('save')
-    localStorage.setItem(date, JSON.stringify(obj));
+    obj["date"] = date
+    localStorage.setItem("data", JSON.stringify(obj));
 };
 
 export function loadJson(date) {
-    console.log("load")
-    let data = localStorage.getItem(date);
-
-    return JSON.parse(data);
+    let data = localStorage.getItem("data");
+    data = JSON.parse(data);
+    if (data === null || data["date"] != date) {
+        return;
+    }
+    return data
 };
