@@ -1,7 +1,9 @@
 function buildBox(c=0) {
     let box = document.createElement("div");
-
-    box.className = "flex items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-secondary peer-checked:group-[]:border-neutral-content";
+    box.className = "flex items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary peer-checked:border-none peer-checked:group-[]:border-neutral-content group";
+    let cell = document.createElement("div");
+    cell.className = "flex items-center justify-center border-0 w-full h-full rounded peer-checked:group-[]:border-2 peer-checked:group-[]:border-secondary";
+    box.appendChild(cell)
     return box; 
 };
 
@@ -45,12 +47,11 @@ export function populateBoard(words, data, maxLength) {
             rowInput.checked = true;
         }
 
-        let row = rowInput.parentElement.getElementsByTagName('div');
+        let row = rowInput.parentElement.querySelectorAll('.row>div');
         
         for (let column=0; column<maxLength; column++) {
             if (rowID <= data["currRow"]) {
-                row[column].classList.add("animate-flip")
-
+                row[column].classList.add("animate-flip");
             }
             if (column < data["minLengths"][rowID] || rowID < data["currRow"]) {
                 row[column].textContent = word[column]

@@ -33,6 +33,7 @@ function insertLetter(letter, cell) {
     }
 
     cell.textContent = letter.toUpperCase();
+    cell.classList.add("animate-scale");
     currentLength += 1;
 };
 
@@ -41,6 +42,7 @@ function deleteLetter(cell, data) {
         return;
     }
     cell.textContent = ""
+    cell.classList.remove("animate-scale")
     currentLength -= 1;
 };
 
@@ -80,7 +82,7 @@ function getRow() {
 
 function getCell(id){
     let row = getRow();
-    let cell = row.getElementsByTagName('div')[id];
+    let cell = row.childNodes[id+1].childNodes[0];
     return cell
 };
 
@@ -91,11 +93,13 @@ function checkGuess(date, data) {
 
     if (guess != correctWord) {
         addLetter(strDate, data);
-        return
+        return;
     }
-    for (let c = data["minLengths"][data["currRow"]]; c<MAX_LENGTH; c++ ) {
-        let cell = row.getElementsByTagName('div')[c]
-        cell.classList.add("bg-success");
+    for (let c = 0; c<MAX_LENGTH; c++ ) {
+        let cell = row.childNodes[c+1];
+        if (c >= data["minLengths"][data["currRow"]]) {
+            cell.classList.add("bg-success");
+        }
     }
 
     nextRow(date, data);

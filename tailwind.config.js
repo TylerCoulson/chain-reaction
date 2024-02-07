@@ -29,9 +29,16 @@ module.exports = {
           '55%': { transform: 'rotateX(90deg)' },
           '100%': { transform: 'rotateX(0.0deg)' },
         },
+        scale: {
+          '0%': { transform: 'scale(1);'},
+          '45%': { transform: 'scale(1.1);'},
+          '55%': { transform: 'scale(1.1);'},
+          '100%': { transform: 'scale(1);'},
+        }
       },
       animation: {
-        'flip': 'flip 2s linear forwards',
+        'flip': 'flip 1s linear forwards',
+        'scale': 'scale 0.5s ease-in-out forwards',
       },
     },
   },
