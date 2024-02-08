@@ -73,7 +73,7 @@ function addLetter(date, data) {
 
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
     data["minLengths"][data['currRow']] += 1;
-    getCell(letterID).classList.add("bg-error")
+    getCell(letterID).parentElement.classList.add("bg-error")
     saveJson(date, data);
     if (letterID == word.length - 1){
         checkGuess(date, data);
@@ -104,11 +104,10 @@ function checkGuess(date, data) {
         let cell = row.childNodes[c+1];
         cell.classList.add("animate-flip")
         if (c >= data["minLengths"][data["currRow"]]) {
-            setTimeout(()=> {cell.classList.add("bg-success")}, `${c*100+400}`)
-            ;
+            cell.classList.add("bg-success")
         }
     }
-    setTimeout(()=> {nextRow(date, data)}, "1000")
+    nextRow(date, data);
     saveJson(date, data);
 };
 
@@ -128,11 +127,12 @@ function nextRow(date, data) {
     getCell(0).classList.add("bg-warning")
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
     let row = getRow();
+    saveJson(date, data);
     for (let c = 0; c<MAX_LENGTH; c++ ) {
         let cell = row.childNodes[c+1];
         cell.classList.remove("animate-flip");
         cell.classList.add("animate-scale");
-        setTimeout(()=> {cell.classList.remove("animate-scale");}, `2000`);
+        setTimeout(() => {cell.classList.remove("animate-scale");}, `2000`);
     }
 };
 

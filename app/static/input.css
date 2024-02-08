@@ -1,37 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.row > div:nth-child(0) {
-    animation-delay: 00ms;
-}
-.row > div:nth-child(1) {
-    animation-delay: 100ms;
-}
-.row > div:nth-child(2) {
-    animation-delay: 200ms;
-}
-.row > div:nth-child(3) {
-    animation-delay: 300ms;
-}
-.row > div:nth-child(4) {
-    animation-delay: 400ms;
-}
-.row > div:nth-child(5) {
-    animation-delay: 500ms;
-}
-.row > div:nth-child(6) {
-    animation-delay: 600ms;
-}
-.row > div:nth-child(7) {
-    animation-delay: 700ms;
-}
-.row > div:nth-child(8) {
-    animation-delay: 800ms;
-}
-.row > div:nth-child(9) {
-    animation-delay: 900ms;
-}
-.row > div:nth-child(10) {
-    animation-delay: 1000ms;
-}
