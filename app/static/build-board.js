@@ -54,7 +54,7 @@ export function populateBoard(words, data, maxLength) {
                 row[column].classList.add("animate-flip");
             }
             if (column < data["minLengths"][rowID] || rowID < data["currRow"]) {
-                row[column].textContent = word[column]
+                row[column].childNodes[0].textContent = word[column]
             }
             if (column == 0) {
                 row[column].classList.add("bg-warning")
