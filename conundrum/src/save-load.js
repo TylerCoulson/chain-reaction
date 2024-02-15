@@ -1,6 +1,6 @@
 export function saveJson(date, obj) {
     obj["date"] = date
-    localStorage.setItem("data", JSON.stringify(obj));
+    localStorage.setItem("conundrum", JSON.stringify(obj));
 };
 
 export function loadJson(date) {
