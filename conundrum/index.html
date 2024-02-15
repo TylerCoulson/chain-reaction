@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Conundrum</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link href="./src/output.css" rel="stylesheet">
+    
+    </head>
+    <body class="min-h-screen overflow-auto bg-base-100 text-base-content">
+        <input id="win" type="checkbox" autocomplete="off" class="hidden peer"/>
+        <main id="container" class="flex flex-col items-center justify-center w-screen text-sm min-w-fit group">
+            <div class="relative flex flex-col items-center justify-center w-full max-w-xl pt-8 pb-4">
+                <h1 class="text-4xl font-bold">Conundrum</h1>
+                <h2 id="date" class="block"></h2>
+                <div id="incorrect" class="absolute"></div>
+            </div>
+            <div id="guess" class="relative grid grid-cols-9 grid-rows-1 justify-center w-full max-w-xl gap-1 my-5 uppercase aspect-[9/1] ">
+            </div>
+
+            <div id="letters" class="grid justify-center w-1/2 aspect-square max-w-xs grid-cols-3 grid-rows-3 gap-[1em] uppercase">
+
+            </div>
+            <div class="flex flex-col justify-center w-1/2 gap-4 m-4 font-bold text-primary-content ">
+                <button id="clear" class="rounded p-4 bg-primary hover:bg-secondary hover:text-base-content active:bg-accent active:scale-95 transition-all text-[2em] disabled:bg-warning disabled:text-base-content">Clear</button>
+                <button id="shuffle" class="rounded p-4 bg-primary hover:bg-secondary hover:text-base-content active:bg-accent active:scale-95 transition-all text-[2em] disabled:bg-warning disabled:text-base-content">Shuffle</button>
+                <button id="check" class="rounded p-4 bg-primary hover:bg-secondary hover:text-base-content active:bg-accent active:scale-95 transition-all text-[2em] disabled:bg-warning disabled:text-base-content">Check Guess</button>
+            </div>
+    </main>
+
+    </body>
+    <script src="./src/scripts.js" type="module" ></script>
+</html>
