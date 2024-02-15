@@ -1,21 +1,7 @@
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  content: ["./app/**/*.{html,js}"],
-  plugins: [require("daisyui"), plugin(({ matchUtilities, theme }) => {
-    matchUtilities(
-      {
-        "animation-delay": (value) => {
-          return {
-            "animation-delay": value,
-          };
-        },
-      },
-      {
-        values: theme("transitionDelay"),
-      }
-    );
-  }),],
+  content: ["./**/*.{html,js}"],
   theme: {
     extend: {
       colors: {
