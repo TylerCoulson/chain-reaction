@@ -1961,6 +1961,10 @@ video {
   border-radius: 0.375rem;
 }
 
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
 .rounded-b {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -2218,10 +2222,6 @@ video {
   background-origin: content-box;
 }
 
-.fill-green-500 {
-  fill: #22c55e;
-}
-
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -2249,6 +2249,10 @@ video {
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-8 {
+  padding: 2rem;
 }
 
 .px-2 {
@@ -2485,9 +2489,9 @@ video {
   color: rgb(255 134 91 / var(--tw-text-opacity));
 }
 
-.text-primary-content {
+.text-white {
   --tw-text-opacity: 1;
-  color: rgb(19 22 22 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .underline {
