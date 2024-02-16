@@ -137,11 +137,11 @@ function nextRow(date, data) {
 };
 
 document.addEventListener("keyup", (e) => {
-    let howToModal = document.getElementById("how-to-play");
+    // let howToModal = document.getElementById("how-to-play");
 
-    if (howToModal.checked) {
-        return;
-    }
+    // if (howToModal.checked) {
+    //     return;
+    // }
     let pressedKey = e.key;
 
     if (pressedKey === "Backspace" && currentLength > 0) {
