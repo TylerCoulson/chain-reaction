@@ -8,6 +8,7 @@ export const BOARD_SIZE = 7;
 let currentDate = new Date();
 let currMonth = currentDate.getMonth()+1;
 let strDate = `${currentDate.getFullYear()}-${('0'+currMonth).slice(-2)}-${('0'+currentDate.getDate()).slice(-2)}`;
+document.getElementById("date").textContent = strDate
 
 let beginWord = WORDS[strDate][0]
 let words = WORDS[strDate][1];
