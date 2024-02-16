@@ -4,7 +4,7 @@ export function saveJson(date, obj) {
 };
 
 export function loadJson(date) {
-    let data = localStorage.getItem("data");
+    let data = localStorage.getItem("conundrum");
     data = JSON.parse(data);
     if (data === null || data["date"] != date) {
         return;
