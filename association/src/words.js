@@ -21,6 +21,18 @@ export const WORDS = {
     "2024-02-15":["PLANET", ["EARTH", "SCIENCE", "FACT", "BOOK", "TOUR", "GUIDE", "ALONG", "SIDE"]],
     "2024-02-16":["EMPLOYEE", ["RETENTION", "WALL", "STREET", "CAR", "RENTAL", "HALL", "WAY", "FORWARD"]],
     "2024-02-17":["WELCOME", ["HOME", "OFFICE", "EQUIPMENT", "RACK", "WEIGHT", "LIMIT", "ORDER", "ONLINE"]],
+    "2024-02-18":["GUEST", ["SERVICES", "RENDERED", "MOOT", "COURT", "APPOINTED", "TIME", "LAPSE", "INTO"]],
+    "2024-02-19":["BELONG", ["TOGETHER", "FOREVER", "MORE", "TIME", "TRAVEL", "LIGHT", "YEAR", "ROUND"]],
+    "2024-02-20":["RUNNERS", ["HIGH", "JUMP", "ROPE", "SWING", "SET", "SAIL", "AWAY", "FOREVER"]],
+    "2024-02-21":["RELIABLE", ["SOURCE", "LEAD", "PENCIL", "SHAVING", "CREAM", "CHEESE", "PUFF", "PASTRY"]],
+    "2024-02-22":["PLATFORM", ["SHOE", "LACE", "UP", "TIGHT", "GRIP", "STRENGTH", "TRAINING", "GROUND"]],
+    "2024-02-23":["DOMINANT", ["GENE", "POOL", "BALL", "GAME", "PLAY", "PRETEND", "TEA", "PARTY"]],
+    "2024-02-24":["JAW", ["DROPPING", "OFF", "CUFF", "LINK", "ARMS", "OPEN", "EMBRACE", "COMFORT"]],
+    "2024-02-25":["", ["", "", "", "", "", "", "", ""]],
+    "2024-02-26":["", ["", "", "", "", "", "", "", ""]],
+    "2024-02-27":["", ["", "", "", "", "", "", "", ""]],
+    "2024-02-28":["", ["", "", "", "", "", "", "", ""]],
+    "2024-02-29":["", ["", "", "", "", "", "", "", ""]],
     
    
     "2024-06-01":["VEGAN", ["LEATHER", "GLOVE","BOX","TOP","QUALITY","ISSUE","ALERT","TONE"]],
