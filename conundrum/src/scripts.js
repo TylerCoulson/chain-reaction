@@ -106,7 +106,7 @@ function createCell(letter) {
     }
 
     let l = document.createElement("label")
-    l.classList = "flex cursor-pointer select-none items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary has-[:checked]:bg-secondary has-[:checked]:animate-scale-up peer-checked:group-[]:border-success peer-checked:group-[]:bg-warning peer-checked:group-[]:cursor-default"
+    l.classList = "flex hover:bg-opacity-75 hover:border-opacity-75 bg-base-300 cursor-pointer select-none items-center w-full min-w-[1em] rounded text-[2em] aspect-square justify-center border-2 border-primary has-[:checked]:bg-secondary has-[:checked]:animate-scale-up peer-checked:group-[]:border-success peer-checked:group-[]:bg-warning peer-checked:group-[]:cursor-default"
     l.textContent = letter
 
 
