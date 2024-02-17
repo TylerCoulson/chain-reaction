@@ -28,11 +28,11 @@ export const WORDS = {
     "2024-02-22":["PLATFORM", ["SHOE", "LACE", "UP", "TIGHT", "GRIP", "STRENGTH", "TRAINING", "GROUND"]],
     "2024-02-23":["DOMINANT", ["GENE", "POOL", "BALL", "GAME", "PLAY", "PRETEND", "TEA", "PARTY"]],
     "2024-02-24":["JAW", ["DROPPING", "OFF", "CUFF", "LINK", "ARMS", "OPEN", "EMBRACE", "COMFORT"]],
-    "2024-02-25":["", ["", "", "", "", "", "", "", ""]],
-    "2024-02-26":["", ["", "", "", "", "", "", "", ""]],
-    "2024-02-27":["", ["", "", "", "", "", "", "", ""]],
-    "2024-02-28":["", ["", "", "", "", "", "", "", ""]],
-    "2024-02-29":["", ["", "", "", "", "", "", "", ""]],
+    "2024-02-25":["HELMET", ["HAIR", "BRAID", "ROPE", "SWING", "DANCE", "BATTLE", "GROUND", "COFFEE"]],
+    "2024-02-26":["COTTON", ["CANDY", "CANE", "SUGAR", "RUSH", "HOUR", "GLASS", "WINDOW", "SEAT"]],
+    "2024-02-27":["HORIZON", ["LINE", "GRAPH", "PAPER", "TOWN", "SQUARE", "ROOT", "CANAL", "LOCK"]],
+    "2024-02-28":["SWEAR", ["VENGEANCE", "SEEKING", "FORTUNE", "TELLER", "MACHINE", "WASHABLE", "MARKER", "SET"]],
+    "2024-02-29":["STAND", ["ALONE", "FOREVER", "YOUNG", "BLOOD", "PRESSURE", "POINT", "GUARD", "RAIL"]],
     
    
     "2024-06-01":["VEGAN", ["LEATHER", "GLOVE","BOX","TOP","QUALITY","ISSUE","ALERT","TONE"]],
